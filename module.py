@@ -649,19 +649,19 @@ class SD_VAE(nn.Module):
         
     def encode(self, x):        
         y_i = self.encoder_i(x).view(x.size(0), -1)
-        y_i = self.fc1_i(y)
+        y_i = self.fc1_i(y_i)
         mu_i, logvar_i = y_i.chunk(2, dim=1)
         z_i = self.reparameterize(mu_i, logvar_i)
         
         y_r = self.encoder_r(x).view(x.size(0), -1)
-        y_r = self.fc1_r(y)
+        y_r = self.fc1_r(y_i)
         mu_r, logvar_r = y_r.chunk(2, dim=1)
         z_r = self.reparameterize(mu_r, logvar_r)
         
         return z_i, mu_i, logvar_i, z_r, mu_r, logvar_r
     
     def project(self, z):
-        z = projector(z)
+        z = self.projector(z)
         return z
     
     def decode(self, z):
