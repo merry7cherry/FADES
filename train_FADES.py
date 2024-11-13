@@ -65,8 +65,14 @@ def write_loss_to_log(logging):
     with open(os.path.join(save_dir, "log.txt"), "a") as f:
         f.write(logging)
     
+# Get the script filename and save path
 filename = sys.argv[0]
-shutil.copyfile(filename, os.path.join(save_dir, filename))
+destination = os.path.join(save_dir, os.path.basename(filename))
+
+# Only copy if source and destination are different
+if filename != destination:
+    shutil.copyfile(filename, destination)
+
 
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
