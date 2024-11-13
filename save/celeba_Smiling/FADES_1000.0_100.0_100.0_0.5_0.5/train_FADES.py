@@ -1,34 +1,21 @@
+import shutil
 import argparse
-import numpy as np
-from sklearn.metrics import normalized_mutual_info_score
-import os
 import shutil
 import sys
 
-import torch
+# from MulticoreTSNE import MulticoreTSNE as TSNE
+import matplotlib.pyplot as plt
+import torchvision
+from torch.utils.data import DataLoader
+from torchvision import transforms
+from tqdm import tqdm
+
+from dataloader import ImageLoader, ImageDataset
+from module import *
+from utils import *
 
 # torch.manual_seed(2024)
 # np.random.seed(2024)
-
-import argparse
-from torch import nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
-from torchvision import datasets, models, transforms
-import torchvision
-
-from dataloader import mnist_usps, mnist_reverse, FaceLandmarksDataset, ImageLoader, ImageDataset
-from module import *
-from utils import *
-import argparse
-from PIL import Image
-
-# from MulticoreTSNE import MulticoreTSNE as TSNE
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.manifold import TSNE
-from tqdm import tqdm, trange
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--bs", type=int, default=100)
